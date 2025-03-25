@@ -9,12 +9,15 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 namespace Demo.DataAccess.Data.Contexts
 {
-   public  class ApplicationDbContext : DbContext
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options) //PC
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
-        {
+        //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
+        //{
 
-        }
+        //}
+
+
+
         public DbSet<Department> Departments { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{

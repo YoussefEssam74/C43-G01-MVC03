@@ -1,7 +1,9 @@
 using Demo.DataAccess.Data.Contexts;
+using Demo.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
+
 namespace Demo.Presentation
-{
+{ 
     public class Program
     {
         public static void Main(string[] args)
@@ -10,13 +12,19 @@ namespace Demo.Presentation
 
             #region  Add services to the container
 
-              builder.Services.AddScoped<ApplicationDbContext>(); // 2. register to services DI Container
-    //        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    //options.UseSqlServer("Connectionstring")
-    //);
-
-
             builder.Services.AddControllersWithViews();
+          // builder.Services.AddScoped<ApplicationDbContext>(); // 2. register services to DI Container
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+               // options.UseSqlServer(builder.Configuration["ConnectionString:DefaultConnection"]);
+               // options.UseSqlServer(builder.Configuration.GetSection("ConnectionString")["DefaultConnection"]);
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+           // builder.Services.AddScoped<DepartmentRepository>();
+            builder.Services.AddScoped<DepartmentRepository,DepartmentRepository>();
+
 
             #endregion
             var app = builder.Build();
@@ -43,4 +51,4 @@ namespace Demo.Presentation
             app.Run();
         }
     }
-}
+    }
