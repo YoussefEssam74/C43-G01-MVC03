@@ -28,13 +28,20 @@ namespace Demo.BusinessLogic.Factories
             {
                 Id = department.Id,
                 Name = department.Name,
-                CreatedOn = DateOnly.FromDateTime(department.CreatedOn)
+                Code = department.Code,
+                Description = department.Description,
+                CreatedOn = DateOnly.FromDateTime(department.CreatedOn),
+                CreatedBy = department.CreatedBy,
+                LastModifiedBy = department.LastModifiedBy,
+                LastModifiedOn = department.LastModifiedOn,
+
             };
         }
         public static Department ToEntity(this CreatedDepartmentDto departmentDto)
         {
             return new Department()
             {
+
                 Name = departmentDto.Name,
                 Code = departmentDto.Code,
                 Description = departmentDto.Description,
