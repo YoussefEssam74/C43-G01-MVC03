@@ -6,10 +6,12 @@ namespace Demo.Presentation.Controllers
 {
     public class DepartmentController(IDepartmentService departmentService) : Controller
     {
+        // BaseURL/Department/Index
+        [HttpGet]
         public IActionResult Index()
         {
             var Departments = departmentService.GetAllDepartments();
-            return View();
+            return View(Departments);
         }
     }
 }
