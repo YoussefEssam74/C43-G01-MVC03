@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Demo.DataAccess.Models;
 
-namespace Demo.BusinessLogic.DataTransferObjects
+namespace Demo.BusinessLogic.DataTransferObjects.DepartmentDtos
 {
-  public   class DepartmentDetailsDto
-    {       
-       // constructor based mappig
+    public class DepartmentDetailsDto
+    {
+        // constructor based mappig
         //public DepartmentDetailsDto (Department department)
         //{
 
@@ -24,7 +24,7 @@ namespace Demo.BusinessLogic.DataTransferObjects
         public DateOnly CreatedOn { get; set; }
 
         public int LastModifiedBy { get; set; } //User Id
-        public DateOnly LastModifiedOn { get; set; }
+        public DateTime? LastModifiedOn { get; set; }
         public bool IsDeleted { get; set; } // Soft Delete
 
         public string Name { get; set; } = string.Empty!;
