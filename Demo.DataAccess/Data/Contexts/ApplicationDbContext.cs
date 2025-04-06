@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Demo.DataAccess.Data.Configurations;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using Demo.DataAccess.Models.DepartmentModel;
 namespace Demo.DataAccess.Data.Contexts
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options) //PC
@@ -19,6 +20,9 @@ namespace Demo.DataAccess.Data.Contexts
 
 
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+
+
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    optionsBuilder.UseSqlServer( "connectionString");

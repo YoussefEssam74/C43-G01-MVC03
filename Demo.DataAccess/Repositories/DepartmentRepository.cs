@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Demo.DataAccess.Data.Contexts;
+using Demo.DataAccess.Models.DepartmentModel;
 
 namespace Demo.DataAccess.Repositories
 {
