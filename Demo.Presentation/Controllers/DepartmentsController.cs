@@ -2,6 +2,7 @@
 using Demo.BusinessLogic.DataTransferObjects;
 using Demo.BusinessLogic.Services;
 using Demo.DataAccess.Models;
+using Demo.Presentation.ViewModels;
 using Demo.Presentation.ViewModels.DepartmentsViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -134,6 +135,56 @@ namespace Demo.Presentation.Controllers
             return View(viewModel);
         }
         #endregion
-    }
+        #region Delete
+        [HttpGet]
+        //public IActionResult Delete(int? id)
+        //{
+
+        //    if (!id.HasValue) return BadRequest(); // 400 
+        //    var department = _departmentService.GetDepartmentById(id.Value);
+        //    if (department is null) return NotFound(); // 404 
+        //    return View(department);
+        //}
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            if (id == 0) return BadRequest();
+            try
+            {
+                bool Deleted = _departmentService.DeleteDepartment(id);
+                if (Deleted)
+                    return RedirectToAction(nameof(Index));
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Department Is Not Deleted");
+                    return RedirectToAction(nameof(Delete), new { id });
+
+                }
+            }
+            catch (Exception ex)
+            {
+                if (_environment.IsDevelopment())
+                {
+                    // 1. Development => Log Error In Console and Return Same View With Error Message 
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return RedirectToAction(nameof(Index));
+
+                }
+                else
+                {
+                    // 2. Deployment => Log Error In File | Table in Database And Return Error View 
+                    _logger.LogError(ex.Message);
+                    return View("ErrorView", ex);
+                }
+
+            }
+        }
+
+
+
+
+            #endregion
+        }
 }
 
