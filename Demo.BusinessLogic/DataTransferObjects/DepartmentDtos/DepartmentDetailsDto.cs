@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Demo.DataAccess.Models;
 
-namespace Demo.BusinessLogic.DataTransferObjects
+namespace Demo.BusinessLogic.DataTransferObjects.DepartmentDtos
 {
-  public   class DepartmentDetailsDto
-    {       
-       // constructor based mappig
+    public class DepartmentDetailsDto
+    {
+        // constructor based mappig
         //public DepartmentDetailsDto (Department department)
         //{
 

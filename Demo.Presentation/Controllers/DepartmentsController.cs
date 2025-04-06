@@ -1,5 +1,6 @@
 ﻿using AspNetCoreGeneratedDocument;
 using Demo.BusinessLogic.DataTransferObjects;
+using Demo.BusinessLogic.DataTransferObjects.DepartmentDtos;
 using Demo.BusinessLogic.Services;
 using Demo.DataAccess.Models;
 using Demo.Presentation.ViewModels;
