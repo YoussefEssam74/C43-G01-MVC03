@@ -1,10 +1,11 @@
 using Demo.BusinessLogic.Services;
 using Demo.DataAccess.Data.Contexts;
-using Demo.DataAccess.Repositories;
+using Demo.DataAccess.Repositories.Classes;
+using Demo.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Presentation
-{ 
+{
     public class Program
     {
         public static void Main(string[] args)
