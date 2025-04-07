@@ -16,9 +16,8 @@ namespace Demo.DataAccess.Repositories.Classes
         {
             if (WithTracking)
 
-                return _dbContext.Set<TEntity>().ToList();
-            else
-                return _dbContext.Set<TEntity>().AsNoTracking().ToList();
+                return _dbContext.Set<TEntity>().Where(E=>E.IsDeleted !=true).ToList();
+                return _dbContext.Set<TEntity>().Where(E=>E.IsDeleted !=true).AsNoTracking().ToList();
 
         }
         //get by id
@@ -51,5 +50,15 @@ namespace Demo.DataAccess.Repositories.Classes
 
         }
 
+        public IEnumerable<TEntity> GetIEnumerable()
+        {
+            return _dbContext.Set<TEntity>();
+        }
+
+        public IQueryable<TEntity> GetIQueryable()
+        {
+            return _dbContext.Set<TEntity>();
+
+        }
     }
 }

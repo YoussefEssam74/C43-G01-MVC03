@@ -1,6 +1,8 @@
-﻿using Azure;
+﻿using AutoMapper;
+using Azure;
 using Demo.BusinessLogic.DataTransferObjects.EmployeeDtos;
 using Demo.BusinessLogic.Services.Interfaces;
+using Demo.DataAccess.Models.EmployeeModel;
 using Demo.DataAccess.Models.Shared.Enums;
 using Demo.DataAccess.Repositories.Interfaces;
 using System;
@@ -11,63 +13,59 @@ using System.Threading.Tasks;
 
 namespace Demo.BusinessLogic.Services.Classes
 {
-    public class EmployeeServices(IEmployeeRepository _employeeRepository) : IEmployeeService
+    public class EmployeeServices(IEmployeeRepository _employeeRepository, IMapper _mapper ) : IEmployeeService
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
         {
             var Employees = _employeeRepository.GetAll( WithTracking);
-            var employeesDto = Employees.Select(Emp => new EmployeeDto()
-            {
-                Id = Emp.Id,
-                Name = Emp.Name,
-                Age = Emp.Age,
-                Email = Emp.Email,
-                IsActive = Emp.IsActive,
-                Salary = Emp.Salary,
-                EmployeeType = Emp.EmployeeType.ToString(),
-                Gender = Emp.Gender.ToString()
-
-            });
+            //src = Employee
+            // Dest = EmployeeDto
+            var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(Employees);
             return employeesDto;
+            //var employeesDto = Employees.Select(Emp => new EmployeeDto()
+            //{
+            //    Id = Emp.Id,
+            //    Name = Emp.Name,
+            //    Age = Emp.Age,
+            //    Email = Emp.Email,
+            //    IsActive = Emp.IsActive,
+            //    Salary = Emp.Salary,
+            //    EmployeeType = Emp.EmployeeType.ToString(),
+            //    Gender = Emp.Gender.ToString()
+
+            //});
+            //return employeesDto;
         }
 
-        public EmployeeDetailsDto GetEmployeebyId(int id)
+        public EmployeeDetailsDto? GetEmployeebyId(int id)
         {
             var employee = _employeeRepository.GetById(id);
-            return employee is null ? null : new EmployeeDetailsDto()
-            {
-                Id = employee.Id,
-                Name = employee.Name,
-                Salary= employee.Salary,
-                Address = employee.Address,
-                Age =employee.Age,
-                Email = employee.Email,
-                HiringDate = DateOnly.FromDateTime(employee.HiringDate),
-                IsActive = employee.IsActive,
-                PhoneNumber = employee.PhoneNumber,
-                EmployeeType = employee.EmployeeType.ToString(),
-                Gender= employee.Gender.ToString(),
-                CreatedBy = 1,
-                CreatedOn= employee.CreatedOn,
-                LastModifiedBy = 1,
-                LastModifiedOn = employee.LastModifiedOn
-            };
+            return employee is null ? null : _mapper.Map<Employee, EmployeeDetailsDto>(employee);
+            
+
         }
         public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {
-            throw new NotImplementedException();
+            var employee = _mapper.Map<CreatedEmployeeDto, Employee>(employeeDto);
+            return _employeeRepository.Add(employee);
         }
 
         public bool DeleteEmployee(int id)
         {
-            throw new NotImplementedException();
+            var employee =_employeeRepository.GetById(id);
+            if(employee is null) return false;
+            else
+            {
+                employee.IsDeleted = true;
+                return _employeeRepository.Update(employee)>0 ? true : false;
+            }
         }
 
       
 
         public int UpdateEmployee(UpdatedEmployeeDto employeeDto)
         {
-            throw new NotImplementedException();
+            return _employeeRepository.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(employeeDto));
         }
     }
 }
