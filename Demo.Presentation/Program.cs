@@ -1,5 +1,7 @@
 using Demo.BusinessLogic.Profiles;
 using Demo.BusinessLogic.Services;
+using Demo.BusinessLogic.Services.Classes;
+using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Data.Contexts;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
@@ -31,11 +33,14 @@ namespace Demo.Presentation
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             //  builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
+            builder.Services.AddScoped<IEmployeeService, EmployeeServices>();
+
+
 
 
 
             #endregion
-             var app = builder.Build();
+            var app = builder.Build();
             #region Configure the HTTP request pipeline.
 
 
