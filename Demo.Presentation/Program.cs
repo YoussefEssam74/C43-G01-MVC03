@@ -18,8 +18,12 @@ namespace Demo.Presentation
 
             #region  Add services to the container
 
-              builder.Services.AddControllersWithViews();
-           
+            //  builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
+
 
             // builder.Services.AddScoped<ApplicationDbContext>(); // 2. register services to DI Container
 
