@@ -27,12 +27,19 @@ namespace Demo.Presentation.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public IActionResult Create(CreatedDepartmentDto departmentDto)
+        public IActionResult Create(DepartmentViewModel departmentViewModel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var departmentDto = new CreatedDepartmentDto()
+                    {
+                        Name = departmentViewModel.Name,
+                        Code = departmentViewModel.Code,
+                        Description = departmentViewModel.Description,
+                        DateOfCreation = departmentViewModel.CreatedOn
+                    };
                     int Result = _departmentService.AddDepartment(departmentDto);
                     if (Result > 0)
                         return RedirectToAction(nameof(Index)); // XXXXXXXX 
@@ -56,7 +63,7 @@ namespace Demo.Presentation.Controllers
 
                 }
             }
-            return View(departmentDto);
+            return View(departmentViewModel);
 
         }
 
@@ -83,7 +90,7 @@ namespace Demo.Presentation.Controllers
             if (!id.HasValue) return BadRequest(); // 400 
             var department = _departmentService.GetDepartmentById(id.Value);
             if (department is null) return NotFound(); // 404 
-            var departmentViewModel = new DepartmentEditViewModel()
+            var departmentViewModel = new DepartmentViewModel()
             {
                 Name =department.Name,
                 Code =department.Code,
@@ -93,7 +100,7 @@ namespace Demo.Presentation.Controllers
             return View(departmentViewModel);
         }
         [HttpPost]
-        public IActionResult Edit([FromRoute]int id,DepartmentEditViewModel viewModel)
+        public IActionResult Edit([FromRoute]int id,DepartmentViewModel viewModel)
         {
             if (ModelState.IsValid)
             {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDtos
 {
-    public class UpdatedEmployeeDto
+    public class UpdatedEmployeeDto : BaseEmployeeDto
     {
         public int Id { get; set; }
         [Required]

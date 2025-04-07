@@ -80,7 +80,7 @@ namespace Demo.Presentation.Controllers
             if (!id.HasValue) return BadRequest();
             var employee = _employeeService.GetEmployeebyId(id.Value);
             if (employee is null) return NotFound();
-            var employeeDto = new UpdatedEmployeeDto()
+            var employeeDto = new BaseEmployeeDto()
             {
                 Id = employee.Id,
                 Name = employee.Name,
