@@ -5,6 +5,7 @@ using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Data.Contexts;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Presentation
@@ -17,8 +18,10 @@ namespace Demo.Presentation
 
             #region  Add services to the container
 
-            builder.Services.AddControllersWithViews();
-          // builder.Services.AddScoped<ApplicationDbContext>(); // 2. register services to DI Container
+              builder.Services.AddControllersWithViews();
+           
+
+            // builder.Services.AddScoped<ApplicationDbContext>(); // 2. register services to DI Container
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {

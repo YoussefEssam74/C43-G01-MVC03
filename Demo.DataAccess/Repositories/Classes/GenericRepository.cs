@@ -50,5 +50,15 @@ namespace Demo.DataAccess.Repositories.Classes
 
         }
 
+        public IEnumerable<TEntity> GetIEnumerable()
+        {
+            return _dbContext.Set<TEntity>();
+        }
+
+        public IQueryable<TEntity> GetIQueryable()
+        {
+            return _dbContext.Set<TEntity>();
+
+        }
     }
 }
