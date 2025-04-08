@@ -18,6 +18,10 @@ namespace Demo.Presentation.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewData[ "Message"] = new DepartmentDto() { Name = "TestViewData" };
+            ViewBag.Message = new DepartmentDto() { Name = "TestViewBag" };
+            //  ViewData["Message"] = "Hello From View Data";
+            //  ViewBag.Message = "Hello From View Bag";
             var Departments = _departmentService.GetAllDepartments();
             return View(Departments);
         }

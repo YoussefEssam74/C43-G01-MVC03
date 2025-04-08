@@ -3,7 +3,20 @@
 
 @{
     ViewData["Title"] = "Index";
+    var Dept = ViewData["Message"] as DepartmentDto;
 }
+
+
+<div class="alert alert-success">
+    @ViewData["Message"]
+    @Dept.Name
+    <b>
+
+        @ViewBag.Message
+    </b>
+    </div>
+
+   
 
 <h1>All Departments</h1>
 <br />
