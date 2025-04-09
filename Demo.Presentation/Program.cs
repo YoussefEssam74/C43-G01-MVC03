@@ -32,6 +32,7 @@ namespace Demo.Presentation
                // options.UseSqlServer(builder.Configuration["ConnectionString:DefaultConnection"]);
                // options.UseSqlServer(builder.Configuration.GetSection("ConnectionString")["DefaultConnection"]);
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseLazyLoadingProxies();
             }); // Register Services in DI Container
 
            // builder.Services.AddScoped<DepartmentRepository>();
