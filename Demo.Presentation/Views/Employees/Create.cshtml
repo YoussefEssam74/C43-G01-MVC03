@@ -1,4 +1,4 @@
-﻿@model  BaseEmployeeDto
+﻿@model EmployeeViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -7,7 +7,7 @@
 <div class="row justify-content-center align-content-center mt-3">
     <h1 class="col-8 my-4">Create Employee</h1>
     <form method="post" asp-controller="Employees" asp-action="Create" class="row col-8">
-        <partial name="PartialView/_EmployeeFormPartial" />
+        <partial name="PartialView/CreateEditPartialView" />
 
 
         <div class="mt-4 m-auto">
