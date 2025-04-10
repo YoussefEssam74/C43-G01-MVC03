@@ -15,26 +15,37 @@ namespace Demo.BusinessLogic.Services.Classes
 {
     public class EmployeeServices(IEmployeeRepository _employeeRepository, IMapper _mapper ) : IEmployeeService
     {
-        public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
+        public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
-            var Employees = _employeeRepository.GetAll( WithTracking);
+            //  var Employees = _employeeRepository.GetAll(E => E.Name.ToLower().Contains(EmployeeSearchName.ToLower()));
             //src = Employee
             // Dest = EmployeeDto
-            var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(Employees);
-            return employeesDto;
-            //var employeesDto = Employees.Select(Emp => new EmployeeDto()
-            //{
-            //    Id = Emp.Id,
-            //    Name = Emp.Name,
-            //    Age = Emp.Age,
-            //    Email = Emp.Email,
-            //    IsActive = Emp.IsActive,
-            //    Salary = Emp.Salary,
-            //    EmployeeType = Emp.EmployeeType.ToString(),
-            //    Gender = Emp.Gender.ToString()
+            // var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(Employees);
+            // return employeesDto;
 
-            //});
-            //return employeesDto;
+
+
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrWhiteSpace( EmployeeSearchName))
+                employees = _employeeRepository.GetAll();
+            else
+                employees = _employeeRepository.GetAll(E => E.Name.ToLower().Contains(EmployeeSearchName.ToLower()));
+                var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
+                return employeesDto;
+
+                //var employeesDto = Employees.Select(Emp => new EmployeeDto()
+                //{
+                //    Id = Emp.Id,
+                //    Name = Emp.Name,
+                //    Age = Emp.Age,
+                //    Email = Emp.Email,
+                //    IsActive = Emp.IsActive,
+                //    Salary = Emp.Salary,
+                //    EmployeeType = Emp.EmployeeType.ToString(),
+                //    Gender = Emp.Gender.ToString()
+
+                //});
+                //return employeesDto;
         }
 
         public EmployeeDetailsDto? GetEmployeebyId(int id)
