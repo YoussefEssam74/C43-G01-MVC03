@@ -5,15 +5,28 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Demo.DataAccess.Data.Configurations;
-
+using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using Demo.DataAccess.Models.DepartmentModel;
 namespace Demo.DataAccess.Data.Contexts
 {
-     class ApplicationDbContext : DbContext
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options) //PC
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(: "connectionString");
-        }
+        //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
+        //{
+
+        //}
+
+
+
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer( "connectionString");
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // modelBuilder.ApplyConfiguration<Department>(new DepartmentConfigurations());
