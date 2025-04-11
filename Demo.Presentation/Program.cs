@@ -42,6 +42,8 @@ namespace Demo.Presentation
             //  builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
             builder.Services.AddScoped<IEmployeeService, EmployeeServices>();
+            builder.Services.AddScoped<IUintOfWork, UnitOfWork>();
+
 
 
 

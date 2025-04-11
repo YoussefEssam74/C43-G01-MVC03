@@ -27,28 +27,25 @@ namespace Demo.DataAccess.Repositories.Classes
         public TEntity? GetById(int id) => _dbContext.Set<TEntity>().Find(id);
 
         // update
-        public int Update(TEntity entity)
+        public void Update(TEntity entity)
         {
             _dbContext.Set<TEntity>().Update(entity); //updated locally
-            return _dbContext.SaveChanges();
         }
 
         // delete
-        public int Remove(TEntity entity)
+        public void Remove(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity); //updated locally
 
-            return _dbContext.SaveChanges();
 
 
         }
 
         // insert
-        public int Add(TEntity entity)
+        public void Add(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity); //updated locally
 
-            return _dbContext.SaveChanges();
 
 
         }
