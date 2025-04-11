@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDtos
 {
-    public class CreatedEmployeeDto
+    public class CreatedEmployeeDto 
     {
         [Required (ErrorMessage="Name Can't Be Null")]
         [MaxLength(50, ErrorMessage = "Max length should be 50 character")]
@@ -34,6 +34,7 @@ namespace Demo.BusinessLogic.DataTransferObjects.EmployeeDtos
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
 
+        public int? DepartmentId { get; set; }
 
     }
 }

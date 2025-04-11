@@ -32,15 +32,18 @@ namespace Demo.Presentation
                // options.UseSqlServer(builder.Configuration["ConnectionString:DefaultConnection"]);
                // options.UseSqlServer(builder.Configuration.GetSection("ConnectionString")["DefaultConnection"]);
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseLazyLoadingProxies();
             }); // Register Services in DI Container
 
-           // builder.Services.AddScoped<DepartmentRepository>();
-            builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
+            // builder.Services.AddScoped<DepartmentRepository>();
+            ////////////////// builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
-            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+           ////////////////// builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             //  builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
-            builder.Services.AddScoped<IEmployeeService, EmployeeServices>();
+             builder.Services.AddScoped<IEmployeeService, EmployeeServices>();
+            builder.Services.AddScoped<IUintOfWork, UnitOfWork>();
+
 
 
 
