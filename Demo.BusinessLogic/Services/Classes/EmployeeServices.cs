@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Demo.BusinessLogic.Services.Classes
 {
-    public class EmployeeServices(IUintOfWork _uintOfWork, IMapper _mapper ) : IEmployeeService
+    public class EmployeeServices(IUintOfWork _uintOfWork, IMapper _mapper ):IEmployeeService
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
@@ -85,6 +85,11 @@ namespace Demo.BusinessLogic.Services.Classes
         {
             _uintOfWork.EmployeeRepository.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(employeeDto));
             return _uintOfWork.SaveChanges();
+        }
+
+        public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
+        {
+            throw new NotImplementedException();
         }
     }
 }
