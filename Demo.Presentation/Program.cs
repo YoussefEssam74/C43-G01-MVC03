@@ -4,8 +4,10 @@ using Demo.BusinessLogic.Services.AttachmentService.AttachmentService;
 using Demo.BusinessLogic.Services.Classes;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Data.Contexts;
+using Demo.DataAccess.Models.IdentityModel;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,6 +47,9 @@ namespace Demo.Presentation
              builder.Services.AddScoped<IEmployeeService, EmployeeServices>();
             builder.Services.AddScoped<IUintOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAttachmentService, AttachmentServices>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 
 
