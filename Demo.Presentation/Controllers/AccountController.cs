@@ -74,10 +74,20 @@ namespace Demo.Presentation.Controllers
                 return View(viewModel);
 
             }
+        #endregion
+        //sign out
+        #region sign out
+        [HttpGet]
+
+        public new async Task<IActionResult> SignOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Login));
+        }
+
             #endregion
-            //sign out
 
         }
-    
+
 }
 
