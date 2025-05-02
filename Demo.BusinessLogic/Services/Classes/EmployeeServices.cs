@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Azure;
 using Demo.BusinessLogic.DataTransferObjects.EmployeeDtos;
+using Demo.BusinessLogic.Services.AttachmentService.AttachmentService;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Models.EmployeeModel;
 using Demo.DataAccess.Models.Shared.Enums;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Demo.BusinessLogic.Services.Classes
 {
-    public class EmployeeServices(IUintOfWork _uintOfWork, IMapper _mapper ) : IEmployeeService
+    public class EmployeeServices(IUintOfWork _uintOfWork, IMapper _mapper,IAttachmentService _attachmentService ):IEmployeeService
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
@@ -59,7 +60,11 @@ namespace Demo.BusinessLogic.Services.Classes
         public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {
             var employee = _mapper.Map<CreatedEmployeeDto, Employee>(employeeDto);
-             _uintOfWork.EmployeeRepository.Add(employee); //add locally
+            if (employeeDto.Image is not null)
+            {
+                employee.Images = _attachmentService.Upload(file: employeeDto.Image, FolderName: "Images");
+            }
+                _uintOfWork.EmployeeRepository.Add(employee); //add locally
                                                                 // insert
                                                                 // update 
                                                                 // delete
@@ -85,6 +90,11 @@ namespace Demo.BusinessLogic.Services.Classes
         {
             _uintOfWork.EmployeeRepository.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(employeeDto));
             return _uintOfWork.SaveChanges();
+        }
+
+        public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
+        {
+            throw new NotImplementedException();
         }
     }
 }

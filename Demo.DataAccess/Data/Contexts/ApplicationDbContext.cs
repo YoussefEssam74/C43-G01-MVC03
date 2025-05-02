@@ -8,9 +8,13 @@ using Demo.DataAccess.Data.Configurations;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Demo.DataAccess.Models.DepartmentModel;
+using System.Data.Common;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Demo.DataAccess.Models.IdentityModel;
 namespace Demo.DataAccess.Data.Contexts
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options) //PC
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options) //PC
     {
         //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         //{
@@ -21,6 +25,9 @@ namespace Demo.DataAccess.Data.Contexts
 
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
+      
+
+
 
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,7 +38,8 @@ namespace Demo.DataAccess.Data.Contexts
         {
             // modelBuilder.ApplyConfiguration<Department>(new DepartmentConfigurations());
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-           // modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly)
+            // modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly)
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

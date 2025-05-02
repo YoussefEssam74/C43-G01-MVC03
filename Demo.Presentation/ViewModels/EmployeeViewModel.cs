@@ -33,5 +33,7 @@ namespace Demo.Presentation.ViewModels
 
         public int? DepartmentId { get; set; }
 
+        public IFormFile? Image { get; set; }   
+
     }
 }
