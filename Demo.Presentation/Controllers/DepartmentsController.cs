@@ -1,7 +1,7 @@
 ﻿using AspNetCoreGeneratedDocument;
 using Demo.BusinessLogic.DataTransferObjects;
 using Demo.BusinessLogic.DataTransferObjects.DepartmentDtos;
-using Demo.BusinessLogic.Services;
+using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Models;
 using Demo.Presentation.ViewModels;
 using Demo.Presentation.ViewModels.DepartmentsViewModel;

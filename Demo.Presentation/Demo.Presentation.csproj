@@ -20,6 +20,9 @@
 
   <ItemGroup>
     <Folder Include="Views\Department\" />
+    <Folder Include="wwwroot\Files\Images\" />
+    <Folder Include="wwwroot\Files\Pdfs\" />
+    <Folder Include="wwwroot\Files\Videos\" />
   </ItemGroup>
 
 </Project>
