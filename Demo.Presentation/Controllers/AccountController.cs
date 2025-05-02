@@ -47,8 +47,8 @@ namespace Demo.Presentation.Controllers
         public IActionResult Login() => View();
 
         [HttpPost]
-        public IActionResult Login(LoginViewModelClass viewModel)
-        {
+        public IActionResult Login(LoginViewModel  viewModel)
+        { 
             if (!ModelState.IsValid) return View(viewModel);
             var User = _userManager.FindByEmailAsync(viewModel.Email).Result;
             if (User is not null)
