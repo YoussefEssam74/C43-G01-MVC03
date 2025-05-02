@@ -30,5 +30,6 @@ namespace Demo.DataAccess.Models.EmployeeModel
 
         public int? DepartmentId { get; set; }
         public virtual Department? Department { get; set; }
+        public string? Images { get; set; }
     }
 }
