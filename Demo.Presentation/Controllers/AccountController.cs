@@ -1,10 +1,13 @@
 ﻿using Demo.DataAccess.Models.IdentityModel;
+using Demo.Presentation.Utilities;
 using Demo.Presentation.ViewModels;
+using Humanizer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Email = Demo.Presentation.Utilities.Email;
 
 namespace Demo.Presentation.Controllers
 {
@@ -85,9 +88,45 @@ namespace Demo.Presentation.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-            #endregion
+        //[HttpGet]
 
+        //public IActionResult SignOut()
+        //{
+        //    signInManager.SignOutAsync().GetAwaiter().GetResult();
+        //    return RedirectToAction(actionName: nameof(Login));
+        //}
+
+        #endregion
+        #region ForgetPassword
+        [HttpGet]
+        public IActionResult ForgetPassword() => View();
+
+        [HttpPost]
+        public IActionResult SendResetPasswordLink(ForgetPasswordViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var User =_userManager. FindByEmailAsync( viewModel.Email).Result;
+                if (User is not null)
+                {
+                    var email = new Email()
+                    {
+                        To = viewModel.Email,
+                        Subject = "Reset Password",
+                        Body = "Reset Password Link" // TODO 
+                    };
+                  
+                    // Send Email  
+
+                }
+            }
+            ModelState.AddModelError(key: string.Empty,  "Invalid Operation");
+            return View(viewName: nameof(ForgetPassword),  viewModel);
         }
+           
+        #endregion
+
+    }
 
 }
 
